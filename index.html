@@ -68,34 +68,41 @@
     .slider-wrap {
       width: 100%;
       position: relative;
+      /* Fixed height so the overflow:hidden clips correctly on all sides */
+      height: 340px;
       overflow: hidden;
       box-shadow: 0 8px 40px rgba(26,58,107,0.2);
       animation: fadeDown 0.7s ease both;
+      background: #0a1628; /* dark fill for letterbox gaps */
     }
 
     .slides {
       display: flex;
+      height: 100%; /* fill the fixed slider height */
       transition: transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
       will-change: transform;
     }
 
     .slide {
+      /* Each slide is exactly the slider width and height — no more, no less */
       min-width: 100%;
-      height: 340px;
-      position: relative;
+      width: 100%;
+      height: 100%;
       flex-shrink: 0;
+      position: relative;
       overflow: hidden;
     }
 
     /* Photo slides */
     .slide-photo {
-      background: linear-gradient(160deg, #b0cde8 0%, #d6eaf8 60%, #a8c6e0 100%);
+      background: #0a1628;
     }
     .slide-photo img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: top center;
+      /* contain = entire image always visible, never cropped */
+      /* object-fit: contain; */
+      object-position: center center;
       display: block;
     }
     .slide-photo::after {
@@ -116,7 +123,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: rgba(26,58,107,0.28);
+      color: rgba(255,255,255,0.25);
     }
     .slide-photo .ph svg { width: 64px; height: 64px; }
     .slide-photo .ph span {
@@ -326,7 +333,7 @@
     svg { display: block; }
 
     @media (max-width: 380px) {
-      .slide { height: 290px; }
+      .slider-wrap { height: 260px; }
       .links { padding: 0 14px; }
     }
   </style>
@@ -340,7 +347,6 @@
 
       <!-- Slide 1: Photo A -->
       <div class="slide slide-photo">
-        <!-- 👉 Replace this src with your actual photo URL or file path -->
         <img src="./images/slide-1.jpg" alt="Seun Okinbaloye"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
         <div class="ph" style="display:none">
@@ -350,10 +356,10 @@
           <span>Add Photo 1</span>
         </div>
       </div>
+
       <!-- Slide 2: Photo A -->
       <div class="slide slide-photo">
-        <!-- 👉 Replace this src with your actual photo URL or file path -->
-        <img src="./images/slide-2.jpg" alt="Seun Okinbaloye"
+        <img src="./images/maxresdefault.jpg" alt="Seun Okinbaloye" style="object-fit: contain;"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
         <div class="ph" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
@@ -365,8 +371,7 @@
 
       <!-- Slide 3: Photo B -->
       <div class="slide slide-photo">
-        <!-- 👉 Replace this src with your actual photo URL or file path -->
-        <img src="./images/slide-5.jfif" alt="Seun Okinbaloye"
+        <img src="./images/slide-2.jpg" alt="Seun Okinbaloye"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
         <div class="ph" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
@@ -378,7 +383,6 @@
 
       <!-- Slide 4: Photo C -->
       <div class="slide slide-photo">
-        <!-- 👉 Replace this src with your actual photo URL or file path -->
         <img src="./images/slide4.jpg" alt="Seun Okinbaloye"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
         <div class="ph" style="display:none">
@@ -388,10 +392,10 @@
           <span>Add Photo 4</span>
         </div>
       </div>
+
       <!-- Slide 5: Photo C -->
       <div class="slide slide-photo">
-        <!-- 👉 Replace this src with your actual photo URL or file path -->
-        <img src="./images/slide-7.jfif" alt="Seun Okinbaloye"
+        <img src="./images/seun.jpg" alt="Seun Okinbaloye"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
         <div class="ph" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
@@ -400,10 +404,10 @@
           <span>Add Photo 5</span>
         </div>
       </div>
-      <!-- Slide 4: Photo C -->
+
+      <!-- Slide 6: Photo C -->
       <div class="slide slide-photo">
-        <!-- 👉 Replace this src with your actual photo URL or file path -->
-        <img src="./images/slide-8.jfif" alt="Seun Okinbaloye"
+        <img src="./images/politics.jpg" alt="Seun Okinbaloye"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
         <div class="ph" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
@@ -467,6 +471,18 @@
       <span class="label">The Mic on Podcast</span>
       <span class="arrow">›</span>
     </a>
+
+    <a class="link-btn" href="https://seunokinbaloye.com/about/" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </span>
+      <span class="label">Biography</span>
+      <span class="arrow">›</span>
+    </a>
+
     <a class="link-btn" href="https://www.icfj.org/about/profiles/seun-okinbaloye" target="_blank" rel="noopener">
       <span class="icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -523,17 +539,6 @@
       <span class="arrow">›</span>
     </a>
 
-    <a class="link-btn" href="https://seunokinbaloye.com/about/" target="_blank" rel="noopener">
-      <span class="icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-          <polyline points="22,6 12,13 2,6"/>
-        </svg>
-      </span>
-      <span class="label">Biography</span>
-      <span class="arrow">›</span>
-    </a>
-
   </div>
 
   <p class="footer">&copy; 2026 Seun Okinbaloye &bull; All Rights Reserved</p>
@@ -542,7 +547,7 @@
 <script>
   const track  = document.getElementById('slides');
   const dots   = document.querySelectorAll('.dot');
-  const TOTAL  = 7; // Update this if you change the number of slides
+  const TOTAL  = 6; // Update this if you change the number of slides
   let cur      = 0;
   let timer;
 
